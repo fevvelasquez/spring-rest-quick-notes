@@ -2,6 +2,7 @@ package me.fevvelasquez.spring.rest.quicknotes.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -17,7 +18,7 @@ import me.fevvelasquez.spring.rest.quicknotes.models.User;
 /**
  * UserService.
  * 
- * @version 0.0.5. Delete user, @DeleteMapping
+ * @version 0.0.6. Query params user, @RequestParam
  * @author fevvelasquez@gmail.com
  *
  */
@@ -36,10 +37,11 @@ public class UserService {
 	}
 
 	/**
-	 * List of All Users.
+	 * List of Users thats starts with.
 	 */
-	public List<User> getUsers() {
-		return users;
+	public List<User> getUsers(String contains) {
+		return contains == null ? users
+				: users.stream().filter(u -> u.getName().contains(contains)).collect(Collectors.toList());
 	}
 
 	/**

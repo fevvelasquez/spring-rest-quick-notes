@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.fevvelasquez.spring.rest.quicknotes.models.User;
@@ -20,7 +21,7 @@ import me.fevvelasquez.spring.rest.quicknotes.services.UserService;
 /**
  * UserController
  * 
- * @version 0.0.5. Delete user, @DeleteMapping
+ * @version 0.0.6. Query params user, @RequestParam
  * @author fevvelasquez@gmail.com
  *
  */
@@ -31,9 +32,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Get list of users which contains a given string.
+	 * 
+	 * e.g. "/users?contains=s"
+	 */
 	@GetMapping
-	public ResponseEntity<List<User>> getUsers() {
-		return new ResponseEntity<List<User>>(userService.getUsers(), HttpStatus.OK);
+	public ResponseEntity<List<User>> getUsers(
+			@RequestParam(value = "contains", required = false) String contains) {
+		return new ResponseEntity<List<User>>(userService.getUsers(contains), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}")
