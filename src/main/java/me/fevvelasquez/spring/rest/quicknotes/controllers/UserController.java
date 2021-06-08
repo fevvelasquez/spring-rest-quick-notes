@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import me.fevvelasquez.spring.rest.quicknotes.services.UserService;
 /**
  * UserController
  * 
- * @version 0.0.4. Update user, @PutMapping
+ * @version 0.0.5. Delete user, @DeleteMapping
  * @author fevvelasquez@gmail.com
  *
  */
@@ -62,6 +63,12 @@ public class UserController {
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
 		return new ResponseEntity<User>(userService.updateUser(id, user), HttpStatus.OK);
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+		userService.deleteUser(id);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
 }

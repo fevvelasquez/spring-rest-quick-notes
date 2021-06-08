@@ -17,7 +17,7 @@ import me.fevvelasquez.spring.rest.quicknotes.models.User;
 /**
  * UserService.
  * 
- * @version 0.0.4. Update user, @PutMapping
+ * @version 0.0.5. Delete user, @DeleteMapping
  * @author fevvelasquez@gmail.com
  *
  */
@@ -75,6 +75,14 @@ public class UserService {
 			users.add(newUser);
 		}
 		return newUser;
+	}
+
+	/**
+	 * Delete User
+	 */
+	public void deleteUser(Integer id) {
+		User userToBeDeleted = getUserById(id);
+		users.remove(userToBeDeleted);
 	}
 
 }
